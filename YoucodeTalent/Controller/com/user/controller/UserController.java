@@ -46,6 +46,7 @@ public class UserController extends User{
 	  public void add() throws SQLException {
 		  
 		  //Random Id 
+		  
 		  Random rd = new Random();
           long id = (long)(rd.nextDouble()*1000000000L);
 		  
