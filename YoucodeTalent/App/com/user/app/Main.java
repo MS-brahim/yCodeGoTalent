@@ -27,6 +27,8 @@ public class Main {
         System.out.println("4 - DELETE User ");
         System.out.println("5 - Quit");
         System.out.println("6 - Find User ById");
+        System.out.println("7 - Find AllUsers (administrator");
+
 
         selection = input.nextInt();
         return selection;    
@@ -126,19 +128,21 @@ public class Main {
 				}
             	break;
             	
-//            case 7 : 
-//				
-//				try {
-//					
-//					
-//					AdministratorController.display();
-//					
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					System.out.println(e);
-//				}
-				
-//				break;
+            case 7:
+            	
+            	try {
+            		
+            		System.out.println(AdministratorController.findAllUsers().toString());
+            		
+            		
+
+            		
+            	} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println(e);
+				}
+            	
+
             	
             default:
 				System.out.println("Oups une erreur est trouvé");

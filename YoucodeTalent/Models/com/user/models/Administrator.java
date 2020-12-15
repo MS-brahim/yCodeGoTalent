@@ -1,18 +1,21 @@
 package com.user.models;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 public class Administrator extends User {
-	
+
 	private String password;
 
-	public Administrator(String password) {
-		super();
+	public Administrator(Long id, String first_name, String last_name, String email, String phone, String password) {
+		super(id, first_name, last_name, email, phone);
 		this.password = password;
 	}
-	
-	public Administrator() {}
+
+//	public Administrator() {
+//	}
+
+	@Override
+	public String toString() {
+		return "Admin [password= " + password + "]";
+	}
 
 	public String getPassword() {
 		return password;
@@ -22,28 +25,7 @@ public class Administrator extends User {
 		this.password = password;
 	}
 
-	@Override
-	public String toString() {
-		return "Administrator [password=" + password + ", toString()=" + super.toString() + "]";
-	}
-	
-	public ArrayList<User> findAllUsers() throws SQLException{
-		return null;}
-	
-	public void adminConnect(){}
-	
-	public ArrayList<Participation> findParticipations(){
-		return null;}
-	
-	public Participation findParticipationByEmail(){
-		return null;}
-	
-	public void validateParticipation(){}
-
 	
 	
 	
-	
-	
-
 }
