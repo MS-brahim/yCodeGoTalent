@@ -1,4 +1,4 @@
-package com.user.controller;
+package com.pack.controller;
 import com.user.config.*;
 import com.user.models.User;
 import com.user.models.User;
@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
 import java.util.Scanner;
+
+
 public class UserController extends User{
 	
 	Config config;
@@ -70,7 +72,31 @@ public class UserController extends User{
 			statement.setString(5, this.phone);
 			statement.executeUpdate();
 		 
-		System.out.println("User added");;
+		System.out.println("User added: " +id);
+	  }
+	  
+	  public User finUserById() throws SQLException, ClassNotFoundException {
+		  
+		  System.out.println("Enter the id user that you want");
+		  
+		  long id = scanner.nextLong();
+		  String sqlString = "SELECT * FROM users WHERE id=?";
+		  java.sql.PreparedStatement statement = config.connect().prepareStatement(sqlString);
+		  statement.setLong(1, id);
+		  User user = new User();
+		  ResultSet resultSet = statement.executeQuery();
+		  
+		  while(resultSet.next()) {
+			  
+			  user.setId(id);
+			  user.setFirst_name(resultSet.getString("first_name"));
+			  user.setLast_name(resultSet.getString("last_name"));
+			  user.setEmail(resultSet.getString("email"));
+			  user.setPhone(resultSet.getString("phone"));
+		  }
+		
+		return user; 
+		  
 	  }
 		 public void update() throws SQLException{
 			 System.out.println("Enter the id");
@@ -93,9 +119,11 @@ public class UserController extends User{
 				statement.setLong(5, this.id);
 				
 				statement.executeUpdate();
-		   System.out.println("Student Updeted");;
+		   System.out.println("User Updeted");;
 		 }
+		 
 		public void delete() throws SQLException {
+			
 			 System.out.println("Enter the id");
 			  this.id = scanner.nextLong(); 
 			  String sqlString = "delete from  users"+ " WHERE id=?";
@@ -108,4 +136,7 @@ public class UserController extends User{
 
 
 		}
-	}
+		
+		
+		}
+	

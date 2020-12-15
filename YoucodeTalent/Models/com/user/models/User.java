@@ -1,7 +1,5 @@
 package com.user.models;
 
-import java.math.BigInteger;
-
 public class User {
 	
 	
@@ -65,7 +63,7 @@ public class User {
 	@Override
 	public String toString() {
 		
-		return "User [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email +", phone " + phone + "]";
+		return "User [ id = " + id + ", first_name = " + first_name + ", last_name = " + last_name + ", email = " + email +", phone " + phone + "]";
 	}
 
 	public void setEmail(String email) {

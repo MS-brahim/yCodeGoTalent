@@ -80,7 +80,7 @@ public class Participation {
 		return is_accepted;
 	}
 
-	public void setIs_accepted(boolean is_accepted) {
+	public void setIs_accepted(boolean is_accepted) {	
 		this.is_accepted = is_accepted;
 	}
 

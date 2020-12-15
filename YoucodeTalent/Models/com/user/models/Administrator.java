@@ -1,5 +1,6 @@
 package com.user.models;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Administrator extends User {
@@ -26,7 +27,7 @@ public class Administrator extends User {
 		return "Administrator [password=" + password + ", toString()=" + super.toString() + "]";
 	}
 	
-	public ArrayList<User> findAllUsers(){
+	public ArrayList<User> findAllUsers() throws SQLException{
 		return null;}
 	
 	public void adminConnect(){}
