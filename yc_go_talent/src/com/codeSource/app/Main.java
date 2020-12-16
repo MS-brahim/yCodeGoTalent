@@ -2,9 +2,8 @@ package com.codeSource.app;
 
 import java.util.Scanner;
 
+import com.codeSource.controller.AdminController;
 import com.codeSource.controller.UserController;
-import com.codeSource.model.Administrator;
-import com.codeSource.model.User;
 
 public class Main {
 	
@@ -14,8 +13,8 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
+		AdminController admin = new AdminController();
 		UserController user = new UserController();
-		User userC = new User();
 		
 		Scanner scanneMenu = new Scanner(System.in);
 		
@@ -24,21 +23,22 @@ public class Main {
 	    System.out.println("+--------------------------------+");
 		try {
 			Menu();
-			new Administrator().findParticipations();
-			do {
+			admin.findParticipationByEmail();
+ 			do {
 				switch(scanneMenu.nextInt()) {
 				case 1:
-					user.login();
+					admin.adminConnect();
 					switch(scanneMenu.next().charAt(0)) {
 					case 'u':
-						userC.display();
+						admin.findAllUsers();
 						break;
 						
 					case 'p':
-						
+						admin.findParticipations();
 						break;
 						
 					case 'f':
+						admin.findParticipationByEmail();
 						break;
 						
 					case 'v':
@@ -47,7 +47,7 @@ public class Main {
 					
 					break;
 				case 2:				
-					userC.display();
+					
 					break;
 				}
 			}while (scanneMenu!=null);		
