@@ -34,7 +34,7 @@ public class AdminController {
 			System.out.println("Please Enter Your Email And Password!!");
 		}else {	
 		
-			String sql ="SELECT users.*,administrator.password "
+			String sql ="SELECT users.*,administrator.* "
 					+ "FROM users "
 					+ "INNER JOIN administrator "
 					+ "ON id_user = administrator.id_user "
@@ -42,19 +42,27 @@ public class AdminController {
 					
 			ResultSet result = config.getStatement().executeQuery(sql);
 			if(result.next()) {
-				/*sql = "UPDATE adminsession "
-						+ "INNER JOIN users "
-						+ "ON  id_administrator = users.id "
-						+ "SET adminsession.is_connected = true";*/
-				
+				long idAdmin = result.getLong("id_user");
 				String fname = result.getString("first_name");
 				String lname = result.getString("last_name");
-				System.out.println("Admin : " +fname+" "+lname);
-				System.out.println("_________________________________");
-				System.out.println("u-Users");
-				System.out.println("p-Participations");
-				System.out.println("f-Find Participation By User Email");
-				System.out.println("v-Validate Participation");
+				
+				
+				 boolean  SaveSession = false;
+				 if (SaveSession==false) {
+					 String sqlSession = "UPDATE adminsession SET is_connected = true WHERE id_administrator = '"+idAdmin+"'";
+					 config.getStatement().executeQuery(sqlSession);
+					 System.out.println("Save Connected!");
+					 System.out.println("Admin : " +fname+" "+lname+" "+idAdmin);
+						
+						System.out.println("_________________________________");
+						System.out.println("u-Users");
+						System.out.println("p-Participations");
+						System.out.println("f-Find Participation By User Email");
+						System.out.println("v-Validate Participation");
+				}
+					
+				
+				
 				
 			}else {
 				System.out.println("Email and password inccorect!! Enter 1 try Again");
@@ -136,7 +144,9 @@ public class AdminController {
 		}
 		return null;
 	}
+	
 	public void validateParticipation() throws SQLException {
+		
 		 System.out.println("id category");
 	     int idCat =  new Scanner(System.in).nextInt();
 	     System.out.println("id user");
@@ -147,21 +157,24 @@ public class AdminController {
 
 	     if(resultSet.next()) {
 
-	    	 System.out.println("Accept ");
-	         int valid= new Scanner(System.in).nextInt();
-	         if(valid==1) {
-	        	 String sql2 = "UPDATE participation SET  is_accepted=true WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'  ";
-	            
+	    	 System.out.println("To accept Write (1)");
+	    	 System.out.println("To Cancel Write (0)");
+	    	 
+	         int validInput = new Scanner(System.in).nextInt();
+	         switch(validInput) {
+	         case 1:
+	        	 String sql2 = "UPDATE participation SET  is_accepted=true WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'";
+		            
 	             config.getStatement().executeUpdate(sql2);
 	             System.out.println("Participation Was Accepted");
-	         }
-
-	         if(valid==0) {
+	        	 break;
+	        	 
+	         case 0:
 	        	 String sql3 = "UPDATE participation SET  is_accepted = false WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'";
 	             config.getStatement().executeUpdate(sql3);
 	             System.out.println("Participation Was refused");
+	        	 break;
 	         }
-
 	     }else {
 	    	 System.out.println("Error");
 	     }

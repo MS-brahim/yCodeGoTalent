@@ -23,6 +23,7 @@ public class Main {
 	    System.out.println("+--------------------------------+");
 		try {
 			Menu();
+			admin.adminConnect();
 			//admin.findAllUsers();
 			//admin.findParticipationByEmail();
 			//admin.findParticipations();
@@ -51,7 +52,7 @@ public class Main {
 						}
 					} while (true);
 				case 2:				
-					
+					//Partie Candidats (Ayoub)
 					break;
 				}
 			}while (scanneMenu!=null);		
