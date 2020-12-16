@@ -3,6 +3,7 @@ package com.youcode.app;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.youcode.controller.AdministratorController;
 import com.youcode.controller.UserController;
 
 
@@ -28,7 +29,7 @@ public class Main {
         System.out.println("4 - DELETE User ");
         System.out.println("5 - Quit");
         System.out.println("6 - Find User ById");
-//        System.out.println("7 - Find AllUsers (administrator");
+        System.out.println("7 - Find AllUsers (administrator");
 
 
         selection = input.nextInt();
@@ -37,7 +38,7 @@ public class Main {
 	
 	
 
-	public static void main(String[] args) throws ClassNotFoundException {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
 		UserController userController = new UserController();
 		
@@ -82,7 +83,7 @@ public class Main {
 	            try {
 					
 					
-					userController.updateUser();
+					userController.update();
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -129,20 +130,20 @@ public class Main {
 				}
             	break;
             	
-//            case 7:
-//            	
-//            	try {
-//            		
-//            		System.out.println(AdministratorController.findAllUsers().toString());
-//            		
-//            		
-//
-//            		
-//            	} catch (Exception e) {
-//					// TODO: handle exception
-//					System.out.println(e);
-//				}
-//            	
+            case 7:
+            	
+            	try {
+            		
+            		System.out.println(AdministratorController.findAllUsers().toString());
+            		
+            		
+
+            		
+            	} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println(e);
+				}
+            	
 
             	
             default:

@@ -104,48 +104,26 @@ public class UserController extends User{
 		return user; 
 		  
 	  }
-//		 public void update() throws SQLException{
-//			 System.out.println("Enter the id");
-//			  this.id = scanner.nextLong(); 
-//			 System.out.println("Enter the First_name");
-//			  this.first_name = scanner.next();
-//			  System.out.println("Enter the Last_name");
-//			  this.last_name = scanner.next();
-//			  System.out.println("Enter the Email");
-//			  this.email = scanner.next();
-//			  System.out.println("Enter the Phone");
-//			  this.phone = scanner.next();
-//
-//			  String sqlString = "update  users SET "+" first_name=?, lastname=?,email=?, phone=?, WHERE id=?";
-//			  java.sql.PreparedStatement statement = config.connect().prepareStatement(sqlString);
-//				statement.setString(1, this.first_name);
-//				statement.setString(2, this.last_name);
-//				statement.setString(3, this.email);
-//				statement.setString(4, this.phone);
-//				statement.setLong(5, this.id);
-//				
-//				statement.executeUpdate();
-//		   System.out.println("User Updeted");;
-//		 }
+
 	  
-	  public void updateUser() throws ClassNotFoundException, SQLException {
+	  public void update() throws ClassNotFoundException, SQLException {
 			
 			
 		  System.out.println("Enter your id:");
-		  String idstr = scanner.nextLine();
-		  long id = Long.parseLong(idstr);
+		  String idstring = scanner.nextLine();
+		  long id = Long.parseLong(idstring);
 		  System.out.println("Enter your first name:");
-		  String fname = scanner.nextLine();
+		  String first_name = scanner.nextLine();
 		  System.out.println("Enter your last name:");
-		  String lname = scanner.nextLine();
+		  String last_name = scanner.nextLine();
 		  System.out.println("Enter your email:");
 		  String email = scanner.nextLine();
 		  System.out.println("Enter your phone number:");
 		  String phone = scanner.nextLine();
-		  String sqlString = "update  users SET  first_name=?, last_name=?, email=?, phone=? WHERE user_id=?";
-		java.sql.PreparedStatement statement = connection.prepareStatement(sqlString);
-			statement.setString(1, fname);
-			statement.setString(2, lname);
+		  String sqlString = "update  users SET  first_name=?, last_name=?, email=?, phone=? WHERE id=?";
+		  java.sql.PreparedStatement statement = connection.prepareStatement(sqlString);
+			statement.setString(1, first_name);
+			statement.setString(2, last_name);
 			statement.setString(3, email);
 			statement.setString(4, phone );
 			statement.setLong(5, id);
@@ -156,6 +134,8 @@ public class UserController extends User{
 		
 		
 	}
+	  
+	
 		 
 		public void delete() throws SQLException {
 			
