@@ -1,21 +1,15 @@
 package com.youcode.models;
 
 public class Administrator extends User {
-
+	
 	private String password;
 
-	public Administrator(Long id, String first_name, String last_name, String email, String phone, String password) {
-		super(id, first_name, last_name, email, phone);
+	public Administrator(String password) {
+		super();
 		this.password = password;
 	}
-
-//	public Administrator() {
-//	}
-
-	@Override
-	public String toString() {
-		return "Admin [password= " + password + "]";
-	}
+	
+	public Administrator() {}
 
 	public String getPassword() {
 		return password;
@@ -25,7 +19,25 @@ public class Administrator extends User {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "Administrator [password =" + password + ", toString() =" + super.toString() + "]";
+	}
+	
+//	public ArrayList<User> findAllUsers(){}
+//	
+//	public void adminConnect(){}
+//	
+//	public ArrayList<Participation> findParticipations(){}
+//	
+//	public Participation findParticipationByEmail(){}
+//	
+//	public void validateParticipation(){}
+
 	
 	
 	
+	
+	
+
 }
