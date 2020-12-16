@@ -8,7 +8,7 @@ import com.codeSource.config.Config;
 import com.codeSource.model.Participation;
 import com.codeSource.model.User;
 import java.util.List;
-import java.lang.String;
+
 
 public class AdminController {
 	
@@ -86,17 +86,17 @@ public class AdminController {
 				+ "ON id_category = category.id";
 		
 		ResultSet resultSet = config.getStatement().executeQuery(sql);
-		String leftAlignFormat = "| %-10s | %-20s | %-20s | %-25s | %-15s | %-10s |%n";
+		String leftAlignFormat = "|  %-10s	|  %-15s	|  %-15s	|  %-25s	|  %-15s	|  %-5s	|%n";
 		
-		System.out.format("+---------------------+--------------------+--------------------+------------+---------------+---------------------------+%n");
-		System.out.format("|   	 Name       |     Start Date   	 | 	    End Date      | 	Description    |	File    | 	Status   |%n");
-		System.out.format("+---------------------+--------------------+--------------------+--------------------+---------------+--------------------+%n");
+		System.out.format("+---------------+-----------------------+-----------------------+-------------------------------+-----------------------+---------------+%n");
+		System.out.format("|     Name	|	Start Date	|	End Date	|	Description		|	File		|  Status	|%n");
+		System.out.format("+---------------+-----------------------+-----------------------+-------------------------------+-----------------------+---------------+%n");
 		while (resultSet.next()) {		
 		    System.out.format(leftAlignFormat, resultSet.getString("name"), 
-		    		resultSet.getString("description"),	resultSet.getString("description"),
-		    		resultSet.getString("description"),	resultSet.getString("description"));
-			System.out.format("+----------------+------------------+-----------------------+--------------------+--------------------+%n");
-
+		    		resultSet.getTime("show_start_time"),	resultSet.getTime("show_end_time"),
+		    		resultSet.getString("description"),	resultSet.getString(6),	
+		    		resultSet.getBoolean("is_accepted"));
+		    System.out.format("+---------------+-----------------------+-----------------------+-------------------------------+-----------------------+---------------+%n");
 		}
 		return null;
 	}
@@ -136,7 +136,34 @@ public class AdminController {
 		}
 		return null;
 	}
-	public void validateParticipation() {
-		
+	public void validateParticipation() throws SQLException {
+		 System.out.println("id category");
+	     int idCat =  new Scanner(System.in).nextInt();
+	     System.out.println("id user");
+	     int idUser =  new Scanner(System.in).nextInt();
+
+	     String sql = "SELECT * FROM participation WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'";
+	     ResultSet resultSet = config.getStatement().executeQuery(sql);
+
+	     if(resultSet.next()) {
+
+	    	 System.out.println("Accept ");
+	         int valid= new Scanner(System.in).nextInt();
+	         if(valid==1) {
+	        	 String sql2 = "UPDATE participation SET  is_accepted=true WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'  ";
+	            
+	             config.getStatement().executeUpdate(sql2);
+	             System.out.println("Participation Was Accepted");
+	         }
+
+	         if(valid==0) {
+	        	 String sql3 = "UPDATE participation SET  is_accepted = false WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'";
+	             config.getStatement().executeUpdate(sql3);
+	             System.out.println("Participation Was refused");
+	         }
+
+	     }else {
+	    	 System.out.println("Error");
+	     }
 	}
 }

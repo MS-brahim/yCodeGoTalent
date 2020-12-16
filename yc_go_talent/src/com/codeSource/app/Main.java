@@ -23,29 +23,33 @@ public class Main {
 	    System.out.println("+--------------------------------+");
 		try {
 			Menu();
-			admin.findParticipationByEmail();
+			//admin.findAllUsers();
+			//admin.findParticipationByEmail();
+			//admin.findParticipations();
+			//admin.validateParticipation();
  			do {
 				switch(scanneMenu.nextInt()) {
 				case 1:
 					admin.adminConnect();
-					switch(scanneMenu.next().charAt(0)) {
-					case 'u':
-						admin.findAllUsers();
-						break;
-						
-					case 'p':
-						admin.findParticipations();
-						break;
-						
-					case 'f':
-						admin.findParticipationByEmail();
-						break;
-						
-					case 'v':
-						break;
-					}
-					
-					break;
+					do {
+						switch(scanneMenu.next().charAt(0)) {
+						case 'u':
+							admin.findAllUsers();
+							break;
+							
+						case 'p':
+							admin.findParticipations();
+							break;
+							
+						case 'f':
+							admin.findParticipationByEmail();
+							break;
+							
+						case 'v':
+							admin.validateParticipation();
+							break;
+						}
+					} while (true);
 				case 2:				
 					
 					break;
