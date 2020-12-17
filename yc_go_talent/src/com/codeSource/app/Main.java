@@ -54,8 +54,9 @@ public class Main {
 			//participation.addParticipation();
 			//userController.add();
 			//admin.adminConnect();
+			//admin.adminDeconnect();
 			//admin.findAllUsers();
-			admin.findParticipationByEmail();
+			//admin.findParticipationByEmail();
 			//admin.findParticipations();
 			//admin.validateParticipation();
  			do {
@@ -79,6 +80,10 @@ public class Main {
 							
 						case 'v':
 							admin.validateParticipation();
+							break;
+						case 'd':
+							admin.adminDeconnect();
+							System.exit(0);
 							break;
 						}
 					} while (true);

@@ -1,14 +1,31 @@
 package com.codeSource.controller;
 
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.codeSource.config.Config;
+import com.codeSource.model.AdminSession;
 import com.codeSource.model.Participation;
 import com.codeSource.model.User;
-import java.util.List;
 
+import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.lang.ClassNotFoundException;
+import javax.activation.DataHandler;
 
 public class AdminController {
 	
@@ -47,19 +64,21 @@ public class AdminController {
 				String lname = result.getString("last_name");
 				
 				
-				 //String sqlSession = "UPDATE adminsession SET is_connected = true WHERE id_administrator = '"+idAdmin+"'";
-				 //config.getStatement().executeQuery(sqlSession);
-				 System.out.println("Save Connected!");
+				if (new AdminSession().isConnected()==false) {
 					
-				
-				System.out.println("Admin : " +fname+" "+lname+" "+idAdmin);
+					String sqlSession = "UPDATE adminsession SET is_connected = true WHERE id_administrator = '"+idAdmin+"'";
+					config.getStatement().executeUpdate(sqlSession);
+					System.out.println("______________________________________________");
+					System.out.println("Admin Connected Success : " +fname+" "+lname);
+					System.out.println("______________________________________________");
 					
-				System.out.println("_________________________________");
-				System.out.println("u-Users");
-				System.out.println("p-Participations");
-				System.out.println("f-Find Participation By User Email");
-				System.out.println("v-Validate Participation");
-				
+					System.out.println("u-Users");
+					System.out.println("p-Participations");
+					System.out.println("f-Find Participation By User Email");
+					System.out.println("v-Validate Participation");
+					System.out.println("d-Deconnect");
+				}
+					
 			}else {
 				System.out.println("Email and password inccorect!! Enter 1 try Again");
 			}
@@ -141,11 +160,11 @@ public class AdminController {
 		return null;
 	}
 	
-	public void validateParticipation() throws SQLException {
+	public void validateParticipation() throws SQLException, AddressException, MessagingException {
 		
-		 System.out.println("id category");
+		 System.out.println("Category ID :");
 	     int idCat =  new Scanner(System.in).nextInt();
-	     System.out.println("id user");
+	     System.out.println("User ID :");
 	     int idUser =  new Scanner(System.in).nextInt();
 
 	     String sql = "SELECT * FROM participation WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'";
@@ -163,6 +182,9 @@ public class AdminController {
 		            
 	             config.getStatement().executeUpdate(sql2);
 	             System.out.println("Participation Was Accepted");
+	             
+	             SendMail("smtp.gmail.com", "443", resultSet.getString("email"), "", "", "Object", "Message");
+	             
 	        	 break;
 	        	 
 	         case 0:
@@ -174,5 +196,39 @@ public class AdminController {
 	     }else {
 	    	 System.out.println("Error");
 	     }
+	}
+	
+	public void adminDeconnect() throws Exception {
+		
+		String sqlSession = "UPDATE adminsession SET is_connected = false ";
+		config.getStatement().executeUpdate(sqlSession);
+		System.out.println("Admin Deconnected Success");
+	}
+	
+	public void SendMail(String server,String port,String email,String password,String to,
+			String subject,String msg) throws AddressException, MessagingException {
+		
+		Properties prop = new Properties();
+		prop.put("mail.smtp.auth", true);
+		prop.put("mail.smtp.ssl.enable", "true");
+		prop.put("mail.smtp.host", server);
+		prop.put("mail.smtp.port", port);
+		
+		Session session = Session.getDefaultInstance(prop);
+		
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress(email));
+		message.setRecipients(
+		Message.RecipientType.TO, InternetAddress.parse(to));
+		message.setSubject(subject);
+
+		MimeBodyPart mimeBodyPart = new MimeBodyPart();
+		mimeBodyPart.setContent(msg, "text/html");
+
+		Multipart multipart = new MimeMultipart();
+		multipart.addBodyPart(mimeBodyPart);
+
+		message.setContent(multipart);
+		Transport.send(message);
 	}
 }
