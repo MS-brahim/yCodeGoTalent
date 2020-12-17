@@ -8,8 +8,8 @@ public class Administrator extends User {
 		super();
 	}
 
-	public Administrator(long id, String firstname, String lastname, String email, String phone, String password) {
-		super(id, firstname, lastname, email, phone);
+	public Administrator(long id, String first_name, String last_name, String email, String phone, String password) {
+		super(id, first_name, last_name, email, phone);
 		this.setPassword(password);
 	}
 

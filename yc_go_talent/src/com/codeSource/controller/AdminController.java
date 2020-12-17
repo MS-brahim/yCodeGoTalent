@@ -47,22 +47,18 @@ public class AdminController {
 				String lname = result.getString("last_name");
 				
 				
-				 boolean  SaveSession = false;
-				 if (SaveSession==false) {
-					 String sqlSession = "UPDATE adminsession SET is_connected = true WHERE id_administrator = '"+idAdmin+"'";
-					 config.getStatement().executeQuery(sqlSession);
-					 System.out.println("Save Connected!");
-					 System.out.println("Admin : " +fname+" "+lname+" "+idAdmin);
-						
-						System.out.println("_________________________________");
-						System.out.println("u-Users");
-						System.out.println("p-Participations");
-						System.out.println("f-Find Participation By User Email");
-						System.out.println("v-Validate Participation");
-				}
+				 String sqlSession = "UPDATE adminsession SET is_connected = true WHERE id_administrator = '"+idAdmin+"'";
+				 config.getStatement().executeQuery(sqlSession);
+				 System.out.println("Save Connected!");
 					
 				
-				
+				System.out.println("Admin : " +fname+" "+lname+" "+idAdmin);
+					
+				System.out.println("_________________________________");
+				System.out.println("u-Users");
+				System.out.println("p-Participations");
+				System.out.println("f-Find Participation By User Email");
+				System.out.println("v-Validate Participation");
 				
 			}else {
 				System.out.println("Email and password inccorect!! Enter 1 try Again");

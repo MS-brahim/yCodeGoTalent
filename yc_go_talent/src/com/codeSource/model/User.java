@@ -5,11 +5,11 @@ import com.codeSource.config.Config;
 public class User {
 	Config config = new Config();
 	
-	private long id;
-	private String firstname;
-	private String lastname;
-	private String email;
-	private String phone;
+	protected Long id;
+	protected String last_name;
+	protected String first_name;
+	protected String email;
+	protected String phone;
 	
 	public User() {
 		super();
@@ -20,11 +20,11 @@ public class User {
 		}
 	}
 	
-	public User(long id, String firstname, String lastname, String email, String phone) {
+	public User(long id, String first_name, String last_name, String email, String phone) {
 		super();
 		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.first_name = first_name;
+		this.last_name = last_name;
 		this.email = email;
 		this.phone = phone;
 	}
@@ -37,20 +37,20 @@ public class User {
 		this.id = id;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirst_name() {
+		return first_name;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLast_name() {
+		return last_name;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
 
 	public String getEmail() {
@@ -67,5 +67,12 @@ public class User {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	
+
+	@Override
+	public String toString() {
+		
+		return "User [ id = " + id + ", first_name = " + first_name + ", last_name = " + last_name + ", email = " + email +", phone " + phone + "]";
 	}
 }
