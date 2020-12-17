@@ -47,8 +47,8 @@ public class AdminController {
 				String lname = result.getString("last_name");
 				
 				
-				 String sqlSession = "UPDATE adminsession SET is_connected = true WHERE id_administrator = '"+idAdmin+"'";
-				 config.getStatement().executeQuery(sqlSession);
+				 //String sqlSession = "UPDATE adminsession SET is_connected = true WHERE id_administrator = '"+idAdmin+"'";
+				 //config.getStatement().executeQuery(sqlSession);
 				 System.out.println("Save Connected!");
 					
 				
@@ -121,18 +121,18 @@ public class AdminController {
 					+ "WHERE email ='"+email+"'";
 			
 			ResultSet resultSet = config.getStatement().executeQuery(sql);
-			String leftAlignFormat = "| %-14s | %-14s | %-30s | %-20s | %-12s | %-20s | %-20s | %-10s | %-10s |%n";
+			String leftAlignFormat = "| %-14s | %-14s | %-30s | %-20s | %-12s | %-18s | %-18s | %-29s | %-11s | %-9s |%n";
 			
-			System.out.format("+----------------+-----------------+-----------------------------+---------------+--------------------+---------------------------+-----------------+------------------+--------------------+-------------+%n");
-			System.out.format("|   first name   ||    last name  ||   	     Email	     	  ||  	  Phone      ||  	 Name     ||     Start Date   	 || 	End Date     || 	Description   ||	File   || 	Status   |%n");
-			System.out.format("+----------------+-----------------+-----------------------------+---------------+--------------------+---------------------------+-----------------+------------------+--------------------+-------------+%n");
+			System.out.format("+----------------+-----------------+-------------------------------+---------------------+--------------+--------------------+--------------------+-------------------------------+--------------+-----------+%n");
+			System.out.format("|   first name   ||    last name  ||   	     Email	     	  ||  	    Phone        ||   Name      ||    Start Date     ||     End Date      ||  	     Description       	  ||	 File    ||  Status  |%n");
+			System.out.format("+----------------+-----------------+-------------------------------+---------------------+--------------+--------------------+--------------------+-------------------------------+--------------+-----------+%n");
 	
 			if(resultSet.next()) {		
 			    System.out.format(leftAlignFormat, resultSet.getString("first_name"), resultSet.getString("last_name"), 
 			    		resultSet.getString("email"), resultSet.getString("phone"), resultSet.getString("name"), 
-			    		resultSet.getString("description"),	resultSet.getString("first_name"),
-			    		resultSet.getString("description"),	resultSet.getString("first_name"));
-				System.out.format("+----------------+------------------+-----------------------+--------------------+--------------------+---------------------------+-----------------+------------------+--------------------+-------------+%n");
+			    		resultSet.getTime("show_start_time"),	resultSet.getTime("show_end_time"), resultSet.getString("description"), 
+			    		resultSet.getString(6),	resultSet.getBoolean("is_accepted"));
+			    System.out.format("+----------------+-----------------+-------------------------------+---------------------+--------------+--------------------+--------------------+-------------------------------+--------------+-----------+%n");
 
 			}else {
 				System.out.println("No user is here for this email");

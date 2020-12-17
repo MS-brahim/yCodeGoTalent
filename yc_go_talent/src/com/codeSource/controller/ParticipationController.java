@@ -4,13 +4,14 @@ import com.codeSource.config.Config;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Scanner;
 
 public class ParticipationController {
 
 	Config config = new Config();
-	Scanner scanner;
+	Scanner scanner = new Scanner(System.in);
 	
 	public ParticipationController() throws SQLException {
 		
@@ -57,20 +58,20 @@ public class ParticipationController {
 		System.out.println("Enter the path of your attached file:");
 		String file = scanner.nextLine();
 		
-		//boolean is_accepted = false;
+		boolean is_accepted = false;
 		
-		String query = "INSERT into participation (id_user, id_category, description, show_start_time, show_end_time, attached_file) values(?,?,?,?,?,?)";
-		  PreparedStatement statement1 = config.getStatement().getConnection().prepareStatement(query);
+		String query = "INSERT into participation (id_user, id_category, description, show_start_time, show_end_time, attached_file,is_accepted) values(?,?,?,?,?,?,?)";
+		PreparedStatement statement1 = config.getStatement().getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		  
-			statement1.setLong(1, id);
-			statement1.setLong(2, category);
-			statement1.setString(3, description);
-			statement1.setTimestamp(4, startTimestamp);
-			statement1.setTimestamp(5, endTimestamp );
-			statement1.setString(6, file);
-			//statement1.setBoolean(7, is_accepted );
+		statement1.setLong(1, id);
+		statement1.setLong(2, category);
+		statement1.setString(3, description);
+		statement1.setTimestamp(4, startTimestamp);
+		statement1.setTimestamp(5, endTimestamp );
+		statement1.setString(6, file);
+		statement1.setBoolean(7, is_accepted );
 			
-			statement1.executeUpdate();
+		statement1.executeUpdate();
 		 
 		System.out.println("Check your email :).");
 				

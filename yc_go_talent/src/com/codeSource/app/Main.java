@@ -41,8 +41,8 @@ public class Main {
 	public static void main(String[] args) throws SQLException {
 		
 		AdminController admin = new AdminController();
-		UserController userController = new UserController();
-		ParticipationController participationController = new ParticipationController();
+		UserController user = new UserController();
+		ParticipationController participation = new ParticipationController();
 		
 		Scanner scanneMenu = new Scanner(System.in);
 		
@@ -51,14 +51,16 @@ public class Main {
 	    System.out.println("+--------------------------------+");
 		try {
 			adminMenu();
+			//participation.addParticipation();
 			//userController.add();
 			//admin.adminConnect();
 			//admin.findAllUsers();
-			//admin.findParticipationByEmail();
+			admin.findParticipationByEmail();
 			//admin.findParticipations();
 			//admin.validateParticipation();
  			do {
 				switch(scanneMenu.nextInt()) {
+				//Case 1 Partie Admin 
 				case 1:
 					admin.adminConnect();
 					do {
@@ -81,33 +83,31 @@ public class Main {
 						}
 					} while (true);
 					
-				case 2:				
 					//Case 2 Partie Candidats 
-
-					Boolean out = true;
+				case 2:				
 					
-					while(out) {
+					while(true) {
 						
 						switch (menu()) {
 						
 						case 1 : 
 												
-							userController.display();
+							user.display();
 							break;
 							
 						case 2 : 
 										
-							userController.add();
+							user.add();
 							break;
 							
 				        case 3 :		
 								
-							userController.update();
+				        	user.update();
 							break;
 							
 			            case 4 : 
 	
-							userController.delete();
+			            	user.delete();
 							break;
 							
 			            case 5: 
@@ -117,16 +117,15 @@ public class Main {
 			            	
 			            case 6: 
 			            	
-			            	System.out.println(userController.finUserById().toString());
+			            	System.out.println(user.finUserById().toString());
 			            	break;
 			            	
 			            case 7:
 			            	
-							participationController.addParticipation();
+							participation.addParticipation();
 							break;
 						}
 					}
-					
 					
 				}
 			}while (scanneMenu!=null);		

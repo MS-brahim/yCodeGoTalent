@@ -10,11 +10,11 @@ public class Participation {
 	private String description;
 	private Timestamp  show_start_time;
 	private Timestamp  show_end_time;
-	private File attached_file;
+	private String attached_file;
 	private boolean is_accepted;
 	
 	public Participation(long id_user, long id_category, String description, Timestamp show_start_time,
-			Timestamp show_end_time, File attached_file, boolean is_accepted) {
+			Timestamp show_end_time, String attached_file, boolean is_accepted) {
 		
 		this.id_user = id_user;
 		this.id_category = id_category;
@@ -67,11 +67,11 @@ public class Participation {
 		this.show_end_time = show_end_time;
 	}
 
-	public File getAttached_file() {
+	public String getAttached_file() {
 		return attached_file;
 	}
 
-	public void setAttached_file(File attached_file) {
+	public void setAttached_file(String attached_file) {
 		this.attached_file = attached_file;
 	}
 
