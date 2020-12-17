@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 14 déc. 2020 à 11:37
+-- Généré le : jeu. 17 déc. 2020 à 16:04
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.5
 CREATE DATABASE IF NOT EXISTS yc_gotalent;
@@ -32,6 +32,13 @@ CREATE TABLE `administrator` (
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `administrator`
+--
+
+INSERT INTO `administrator` (`id_user`, `password`) VALUES
+(15970010, '123');
+
 -- --------------------------------------------------------
 
 --
@@ -44,6 +51,13 @@ CREATE TABLE `adminsession` (
   `is_connected` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `adminsession`
+--
+
+INSERT INTO `adminsession` (`id`, `id_administrator`, `is_connected`) VALUES
+(3, 15970010, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -55,6 +69,18 @@ CREATE TABLE `category` (
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `category`
+--
+
+INSERT INTO `category` (`id`, `name`) VALUES
+(1, 'La dance'),
+(2, 'En chantant'),
+(3, 'La scène'),
+(4, 'La Comédie'),
+(22, 'Calcul mental\r\n'),
+(422, 'Le cube de Rubik');
+
 -- --------------------------------------------------------
 
 --
@@ -65,11 +91,18 @@ CREATE TABLE `participation` (
   `id_user` bigint(20) NOT NULL,
   `id_category` bigint(20) NOT NULL,
   `description` varchar(50) NOT NULL,
-  `show_start_time` datetime DEFAULT NULL,
-  `show_end_time` datetime DEFAULT NULL,
+  `show_start_time` timestamp NULL DEFAULT NULL,
+  `show_end_time` timestamp NULL DEFAULT NULL,
   `attached_file` varchar(100) DEFAULT NULL,
   `is_accepted` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `participation`
+--
+
+INSERT INTO `participation` (`id_user`, `id_category`, `description`, `show_start_time`, `show_end_time`, `attached_file`, `is_accepted`) VALUES
+(15970010, 1, 'Description', '2020-12-16 17:10:44', '2020-12-15 17:10:44', 'text.text', 1);
 
 -- --------------------------------------------------------
 
@@ -84,6 +117,16 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `phone` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `phone`) VALUES
+(232323, 'user', 'user', 'user@user.com', '+09911111889'),
+(1597122, 'Admin', 'Admin', 'admin@admin.com', '+0998877889'),
+(15970010, 'Ahmed', 'Mahmoud', 'ahmed.mahmoud.admin@gmail.com', '+212 6 00 00 00 00'),
+(534691317, 'HIMM', 'BRAAA', 'ZSZSSZ', 'SZZSZ');
 
 --
 -- Index pour les tables déchargées
