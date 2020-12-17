@@ -1,5 +1,5 @@
 # yCodeGoTalent
-  #Admin email : 
+#Admin email : 
       ahmed.mahmoud.admin@gmail.com
-  #Admin password : 
+#Admin password : 
       123
