@@ -51,6 +51,7 @@ public class Main {
 	    System.out.println("+--------------------------------+");
 		try {
 			adminMenu();
+			admin.SendMail("stmp.gmail.com", "587", "brahim7khalil@gmail.com", "HIMBRA135mail", "b.mouissi94@gmail.com", "ok", "message");
 			//participation.addParticipation();
 			//userController.add();
 			//admin.adminConnect();
