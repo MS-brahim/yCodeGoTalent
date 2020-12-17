@@ -1,5 +1,5 @@
 # yCodeGoTalent 
-#Database 
+#Database :
       Importer file yc_gotalent.sql to XAMPP.
       
 #Admin  
