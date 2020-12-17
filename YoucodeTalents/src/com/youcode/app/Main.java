@@ -1,6 +1,8 @@
 package com.youcode.app;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 import com.youcode.controller.AdministratorController;
@@ -47,6 +49,8 @@ public class Main {
 		UserController userController = new UserController();
 		
 		ParticipationController participationController = new ParticipationController();
+		
+
 
 		
 		
@@ -74,6 +78,8 @@ public class Main {
 				break;
 				
 			case 2 : 
+				
+			
 				
 	            try {
 					
@@ -107,6 +113,8 @@ public class Main {
 				
             case 4 : 
 				
+            	
+            	
 	            try {
 					
 					
@@ -127,13 +135,14 @@ public class Main {
             case 6: 
             	
             	
+            	
+            	
             	try {
-            		
-            		
             		
             		
             		System.out.println(userController.finUserById().toString());
             		
+            	
             	} catch (Exception e) {
 					// TODO: handle exception
             		
@@ -141,13 +150,17 @@ public class Main {
 
             		
 				}
+            	
+            	
             	break;
             	
             case 7:
             	
             	try {
             		
-            		System.out.println(AdministratorController.findAllUsers().toString());
+            		
+            		
+         	   AdministratorController.findAllUsers().toString();
             		
             		
 
@@ -161,6 +174,8 @@ public class Main {
             case 8:
             	
             	try {
+            		
+            		
 					participationController.addParticipation();
 
             	} catch (Exception e) {
