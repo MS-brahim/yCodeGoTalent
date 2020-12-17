@@ -1,10 +1,6 @@
-<<<<<<< HEAD:YoucodeTalents/src/com/youcode/models/User.java
-package com.youcode.models;
-=======
 package com.codeSource.model;
 
 import com.codeSource.config.Config;
->>>>>>> BRAHIM:yc_go_talent/src/com/codeSource/model/User.java
 
 public class User {
 	Config config = new Config();

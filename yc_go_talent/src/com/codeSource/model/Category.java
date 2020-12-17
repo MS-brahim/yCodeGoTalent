@@ -1,13 +1,10 @@
-<<<<<<< HEAD:YoucodeTalents/src/com/youcode/models/Category.java
-package com.youcode.models;
-=======
 package com.codeSource.model;
->>>>>>> BRAHIM:yc_go_talent/src/com/codeSource/model/Category.java
 
 public class Category {
 	
 	private long id;
 	private String name;
+	
 	public Category(long id, String name) {
 		this.id = id;
 		this.name = name;
@@ -29,8 +26,4 @@ public class Category {
 	public String toString() {
 		return "Category [id=" + id + ", name=" + name + "]";
 	}
-	
-	
-	
 }
-
