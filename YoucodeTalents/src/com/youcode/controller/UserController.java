@@ -3,6 +3,7 @@ package com.youcode.controller;
 
 import java.math.BigInteger;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -83,23 +84,39 @@ public class UserController extends User{
 	  
 	  public User finUserById() throws SQLException, ClassNotFoundException {
 		  
+		  
+			
+	        
+		  
 		  System.out.println("Enter the id user that you want");
 		  
 		  long id = scanner.nextLong();
+		  
+		  
+	        
+	       
 		  String sqlString = "SELECT * FROM users WHERE id=?";
 		  java.sql.PreparedStatement statement = config.connect().prepareStatement(sqlString);
 		  statement.setLong(1, id);
 		  User user = new User();
 		  ResultSet resultSet = statement.executeQuery();
 		  
-		  while(resultSet.next()) {
+		  if(resultSet.next()) {
 			  
 			  user.setId(id);
 			  user.setFirst_name(resultSet.getString("first_name"));
 			  user.setLast_name(resultSet.getString("last_name"));
 			  user.setEmail(resultSet.getString("email"));
 			  user.setPhone(resultSet.getString("phone"));
-		  }
+			  
+			  
+		  } else {
+			  System.out.println("Not existe");
+			  
+			  finUserById();
+			  
+		  } 
+
 		
 		return user; 
 		  
