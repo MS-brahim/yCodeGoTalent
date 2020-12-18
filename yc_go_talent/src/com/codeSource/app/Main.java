@@ -10,7 +10,7 @@ import com.codeSource.controller.UserController;
 public class Main {
 	
 	static void adminMenu() {
-		System.out.println(" 1-Admin Login");
+		System.out.println(" 1-Admin");
 		System.out.println(" 2-Candidat");
 	}
 	
@@ -20,10 +20,6 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         /***************************************************/
-
-        System.out.println("+-------------------------+ :");
-        System.out.println("| You Welcome in Our Application|");
-        System.out.println("+-------------------------+ :");
         System.out.println("1 - list User ");
         System.out.println("2 - ADD User ");
         System.out.println("3 - UPDATE User ");
@@ -51,7 +47,7 @@ public class Main {
 	    System.out.println("+--------------------------------+");
 		try {
 			adminMenu();
-			admin.SendMail("stmp.gmail.com", "587", "brahim7khalil@gmail.com", "HIMBRA135mail", "b.mouissi94@gmail.com", "ok", "message");
+			//admin.SendMail("stmp.gmail.com", "465", "fromEmail", "mdp", "toEmail", "ok", "message");
 			//participation.addParticipation();
 			//userController.add();
 			//admin.adminConnect();
@@ -65,7 +61,7 @@ public class Main {
 				//Case 1 Partie Admin 
 				case 1:
 					admin.adminConnect();
-					do {
+					while (true) {
 						switch(scanneMenu.next().charAt(0)) {
 						case 'u':
 							admin.findAllUsers();
@@ -84,11 +80,13 @@ public class Main {
 							break;
 						case 'd':
 							admin.adminDeconnect();
-							System.exit(0);
+							//System.exit(0);
 							break;
 						}
-					} while (true);
+						break;
+					} 
 					
+					break;					
 					//Case 2 Partie Candidats 
 				case 2:				
 					
@@ -132,9 +130,8 @@ public class Main {
 							break;
 						}
 					}
-					
 				}
-			}while (scanneMenu!=null);		
+			}while (scanneMenu!=null);	
 		} catch (Exception e) {
 			e.getMessage();
 		}

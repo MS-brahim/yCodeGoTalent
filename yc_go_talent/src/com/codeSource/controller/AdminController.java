@@ -23,6 +23,7 @@ import com.codeSource.config.Config;
 import com.codeSource.model.AdminSession;
 import com.codeSource.model.Participation;
 import com.codeSource.model.User;
+import com.codeSource.model.enums.AdminEnum;
 
 public class AdminController {
 	
@@ -38,6 +39,8 @@ public class AdminController {
 	
 	public void adminConnect() throws Exception {
 		
+		AdminEnum LoginError =  AdminEnum.EMPTY_EMAIL_OR_PASS;
+		
 		System.out.println("Enter Your Email : ");
 		String email =  new Scanner(System.in).nextLine();
 		
@@ -45,7 +48,7 @@ public class AdminController {
 		String password =  new Scanner(System.in).nextLine();
 		
 		if (email.isEmpty() && password.isEmpty()) {
-			System.out.println("Please Enter Your Email And Password!!");
+			System.out.println(LoginError.getMsgError());
 		}else {	
 		
 			String sql ="SELECT users.*,administrator.* "
@@ -55,7 +58,7 @@ public class AdminController {
 					+ "WHERE email='"+email+"' AND password='"+password+"'";
 					
 			ResultSet result = config.getStatement().executeQuery(sql);
-			if(result.next()) {
+			if (result.next()) {
 				long idAdmin = result.getLong("id_user");
 				String fname = result.getString("first_name");
 				String lname = result.getString("last_name");
@@ -77,7 +80,8 @@ public class AdminController {
 				}
 					
 			}else {
-				System.out.println("Email and password inccorect!! Enter 1 try Again");
+				LoginError = AdminEnum.INCCORECT_EMAIL_OR_PASS;
+				System.out.println(LoginError.getMsgError());
 			}
 		}
 	} 
