@@ -47,7 +47,7 @@ public class Main {
 	    System.out.println("+--------------------------------+");
 		try {
 			adminMenu();
-			//admin.SendMail("stmp.gmail.com", "465", "fromEmail", "mdp", "toEmail", "ok", "message");
+			//admin.SendMail("stmp.gmail.com", "465", "fromEmail", "email password", "toEmail", "subject", "message");
 			//participation.addParticipation();
 			//userController.add();
 			//admin.adminConnect();
@@ -63,6 +63,7 @@ public class Main {
 					admin.adminConnect();
 					while (true) {
 						switch(scanneMenu.next().charAt(0)) {
+						
 						case 'u':
 							admin.findAllUsers();
 							break;
@@ -83,10 +84,10 @@ public class Main {
 							//System.exit(0);
 							break;
 						}
-						break;
+						//break;
 					} 
 					
-					break;					
+										
 					//Case 2 Partie Candidats 
 				case 2:				
 					
@@ -129,7 +130,9 @@ public class Main {
 							participation.addParticipation();
 							break;
 						}
+						
 					}
+					
 				}
 			}while (scanneMenu!=null);	
 		} catch (Exception e) {

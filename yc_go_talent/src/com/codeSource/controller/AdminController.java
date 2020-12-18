@@ -28,6 +28,7 @@ import com.codeSource.model.enums.AdminEnum;
 public class AdminController {
 	
 	Config config = new Config();
+	AdminEnum adminError =  AdminEnum.EMPTY_EMAIL_OR_PASS;
 	
 	public AdminController() {
 		try {
@@ -39,7 +40,7 @@ public class AdminController {
 	
 	public void adminConnect() throws Exception {
 		
-		AdminEnum LoginError =  AdminEnum.EMPTY_EMAIL_OR_PASS;
+		adminError =  AdminEnum.EMPTY_EMAIL_OR_PASS;
 		
 		System.out.println("Enter Your Email : ");
 		String email =  new Scanner(System.in).nextLine();
@@ -48,7 +49,7 @@ public class AdminController {
 		String password =  new Scanner(System.in).nextLine();
 		
 		if (email.isEmpty() && password.isEmpty()) {
-			System.out.println(LoginError.getMsgError());
+			System.out.println(adminError.getMsgError());
 		}else {	
 		
 			String sql ="SELECT users.*,administrator.* "
@@ -66,10 +67,11 @@ public class AdminController {
 				
 				if (new AdminSession().isConnected()==false) {
 					
+					adminError = AdminEnum.SUCCESS_CONNECT;
 					String sqlSession = "UPDATE adminsession SET is_connected = true WHERE id_administrator = '"+idAdmin+"'";
 					config.getStatement().executeUpdate(sqlSession);
 					System.out.println("______________________________________________");
-					System.out.println("Admin Connected Success : " +fname+" "+lname);
+					System.out.println(adminError.getMsgError()+" "+fname+" "+lname);
 					System.out.println("______________________________________________");
 					
 					System.out.println("u-Users");
@@ -80,8 +82,8 @@ public class AdminController {
 				}
 					
 			}else {
-				LoginError = AdminEnum.INCCORECT_EMAIL_OR_PASS;
-				System.out.println(LoginError.getMsgError());
+				adminError = AdminEnum.INCCORECT_EMAIL_OR_PASS;
+				System.out.println(adminError.getMsgError());
 			}
 		}
 	} 
@@ -162,48 +164,49 @@ public class AdminController {
 	}
 	
 	public void validateParticipation() throws SQLException, AddressException, MessagingException {
-		
-		 System.out.println("Category ID :");
-	     int idCat =  new Scanner(System.in).nextInt();
-	     System.out.println("User ID :");
-	     int idUser =  new Scanner(System.in).nextInt();
+		findParticipations();
+		System.out.println("Category ID :");
+	    int idCat =  new Scanner(System.in).nextInt();
+	    System.out.println("User ID :");
+	    int idUser =  new Scanner(System.in).nextInt();
 
-	     String sql = "SELECT * FROM participation WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'";
-	     ResultSet resultSet = config.getStatement().executeQuery(sql);
+	    String sql = "SELECT * FROM participation WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'";
+	    ResultSet resultSet = config.getStatement().executeQuery(sql);
 
-	     if(resultSet.next()) {
+	    if(resultSet.next()) {
 
-	    	 System.out.println("To accept Write (1)");
-	    	 System.out.println("To Cancel Write (0)");
+	    	System.out.println("To accept Write (1)");
+	    	System.out.println("To Cancel Write (0)");
 	    	 
-	         int validInput = new Scanner(System.in).nextInt();
-	         switch(validInput) {
-	         case 1:
-	        	 String sql2 = "UPDATE participation SET  is_accepted=true WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'";
+	        int validInput = new Scanner(System.in).nextInt();
+	        switch(validInput) {
+	        case 1:
+	        	String sql2 = "UPDATE participation SET  is_accepted=true WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'";
 		            
-	             config.getStatement().executeUpdate(sql2);
-	             System.out.println("Participation Was Accepted");
+	            config.getStatement().executeUpdate(sql2);
+	            System.out.println("Participation Was Accepted");
 	             
-	             //admin.SendMail("stmp.gmail.com", "465", "fromEmail", "mdp", "toEmail", "ok", "message");
+	            //admin.SendMail("stmp.gmail.com", "465", "fromEmail", "mdp", "toEmail", "ok", "message");
 	             
-	        	 break;
+	        	break;
 	        	 
-	         case 0:
-	        	 String sql3 = "UPDATE participation SET  is_accepted = false WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'";
-	             config.getStatement().executeUpdate(sql3);
-	             System.out.println("Participation Was refused");
-	        	 break;
-	         }
-	     }else {
-	    	 System.out.println("Error");
-	     }
+	        case 0:
+	        	String sql3 = "UPDATE participation SET  is_accepted = false WHERE id_user='"+idUser+"' AND id_category='"+idCat+"'";
+	            config.getStatement().executeUpdate(sql3);
+	            System.out.println("Participation Was refused");
+	        	break;
+	        }
+	    }else {
+	    	System.out.println("Error");
+	    }
 	}
 	
 	public void adminDeconnect() throws Exception {
 		
 		String sqlSession = "UPDATE adminsession SET is_connected = false ";
 		config.getStatement().executeUpdate(sqlSession);
-		System.out.println("Admin Deconnected Success");
+		adminError = AdminEnum.SUCCESS_DECONNECT;
+		System.out.println(adminError.getMsgError());
 	}
 	
 	public void SendMail(String server,String port,String username,String password,String to,
